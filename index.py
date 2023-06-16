@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-from time import sleep
+import time
 
 sw1=21
 sw2=20
@@ -25,8 +25,8 @@ while True:
     else:
         stat3=0
     
-    print("sw1:"+stat1+"\n")
-    print("sw2:"+stat2+"\n")
-    print("sw3:"+stat3+"\n")
+    print("sw1:",stat1)
+    print("sw2:",stat2)
+    print("sw3:",stat3)
     
-    sleep(0.1)
+    time.sleep(0.1)
