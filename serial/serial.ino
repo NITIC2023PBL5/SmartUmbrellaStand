@@ -12,7 +12,7 @@ int in1=2,
     in3=4;
 
 //[構文]LCD(rs,e,d0,d1,d2,d3,d4,d5,d6,d7)
-LiquidCrystal lcd(53,52,51,50,49,48,47,46,45,44);
+LiquidCrystal lcd(53,51,49,47,45,43);
 //キーパッド配列
 char keys[4][4]={
   {'1','2','3','A'},
@@ -20,8 +20,8 @@ char keys[4][4]={
   {'7','8','9','C'},
   {'*','0','#','D'}
 };
-byte rowPins[4] = {43,42,41,40};  //ピン番号
-byte colPins[4] = {39,38,37,36};
+byte rowPins[4] = {29,28,27,26};  //ピン番号
+byte colPins[4] = {25,24,23,22};
 Keypad matKeypad = Keypad(makeKeymap(keys),rowPins,colPins,4,4);
 //.getKey()で押されたキーを検出
 
@@ -35,7 +35,6 @@ void setup() {
 
   lcd.begin(16,2);
   lcd.clear();
-  lcd.setCursor(0,0);
   lcd.print("Smart Umbrella");
   lcd.setCursor(0,1);
   lcd.print("Stand");
@@ -55,6 +54,7 @@ void loop() {
 
   if(Serial.available()>0 && Serial.readString().compareTo("request")==0){
     stat = 1;
+    reload(stat,number);
   }
   
   if(stat==1){
@@ -77,19 +77,32 @@ void loop() {
           stat = 0;
           break;
         case 'B':
-          number.setCharAt(number.length()-1,'\0');
+          number = number.substring(0,number.length()-1);
           break;
         case 'C':
           number = "";
           stat = 0;
           break;
       }
-      lcd.clear();
-      lcd.print("Please enter a number...");
-      lcd.setCursor(0,1);
-      lcd.print(number);
+      reload(stat,number);
     }
   }
 
   delay(10);
+}
+
+void reload(int s,String n){
+  switch(s){
+    case 0:
+      lcd.clear();
+      lcd.print("Smart Umbrella");
+      lcd.setCursor(0,1);
+      lcd.print("Stand");
+      break;
+    case 1:
+      lcd.clear();
+      lcd.print("Enter a number");
+      lcd.setCursor(0,1);
+      lcd.print(n);
+  }
 }

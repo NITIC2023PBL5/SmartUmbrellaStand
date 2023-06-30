@@ -10,7 +10,7 @@ newp = None
 def main():
     while True:
         while True:
-            data = ser.readline().decode('utf-8').rstrip()
+            data = ser.readline().decode('utf-8',errors='replace').rstrip()
             if data==None:
                 break
             output(data)
@@ -19,6 +19,7 @@ def main():
     ser.close()
 
 def output(data):
+    global newp
     if data.find('port')==0:  # 「port1:True」の形式で通信
         d = data.split(":")
         value = d[1] == 'True'
@@ -34,22 +35,5 @@ def output(data):
         print(data)
         if newp:
             code[newp] = value
-
-
-'''
-async def userCheck(index):
-    string = 'check:'+index
-    ser.write(string.encode('utf-8'))
-    while True:
-        data = ser.readline().decode('utf-8').rstrip()
-        if data == None:
-            time.sleep(0.1)
-            continue
-        elif data.find('number')==0:
-        else:
-            if data == 'exit': return None
-            else:
-                '''
-            
 
 main()
