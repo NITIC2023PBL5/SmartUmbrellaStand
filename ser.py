@@ -1,5 +1,6 @@
 import time
 import serial
+#import requests
 
 ser = serial.Serial('/dev/ttyACM0',9600,timeout=1)
 ser.reset_input_buffer()
@@ -18,6 +19,10 @@ def main():
         continue
     ser.close()
 
+def printStat():
+    for key in code.keys():
+        print(key,':',code[key])
+
 def output(data):
     global newp
     if data.find('port')==0:  # 「port1:True」の形式で通信
@@ -29,11 +34,15 @@ def output(data):
                 if value:
                     newp = d[0]
                     ser.write(b'request')
+                else:
+                    code[d[0]] = ''
         port[d[0]]=value
     elif data.find('mat')==0:  # 「mat:<Number>」の形式でマトリックスキーの入力を受ける
-        value = int(data.split(':')[1])
+        value = data.split(':')[1]
         print(data)
         if newp:
             code[newp] = value
+        printStat()
+        
 
 main()
