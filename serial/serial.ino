@@ -41,7 +41,7 @@ void setup() {
 }
 
 void loop() {
-  if(count%50==0){
+  if(count%1==0){
     if(digitalRead(in1)==HIGH) Serial.println("port1:True");
     else Serial.println("port1:False");
 
