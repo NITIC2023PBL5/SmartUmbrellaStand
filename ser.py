@@ -1,9 +1,7 @@
 import time
 import serial
-import os
 #import requests
 
-os.system('sudo date --set "$(wget -q http://worldtimeapi.org/api/timezone/Asia/Tokyo.txt -O - | grep ^datetime | cut -d " " -f 2)"')
 ser = serial.Serial('/dev/ttyACM0',9600,timeout=1)
 ser.reset_input_buffer()
 port = {}
