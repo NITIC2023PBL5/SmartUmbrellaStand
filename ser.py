@@ -1,6 +1,14 @@
+#時刻合わせコマンド
+#sudo date --set "$(wget -q http://worldtimeapi.org/api/timezone/Asia/Tokyo.txt -O - | grep ^datetime | cut -d " " -f 2)"
+
 import time
 import serial
-#import requests
+import requests
+from dotenv import load_dotenv
+load_dotenv()
+import os
+url_status = os.getenv('URL_STATUS')
+url_notify = os.getenv('URL_NOTIFY')
 
 ser = serial.Serial('/dev/ttyACM0',9600,timeout=1)
 ser.reset_input_buffer()
@@ -35,6 +43,7 @@ def output(data):
                     newp = d[0]
                     ser.write(b'request')
                 else:
+                    requests.delete(url=url_status+code[d[0]])
                     code[d[0]] = ''
         port[d[0]]=value
     elif data.find('mat')==0:  # 「mat:<Number>」の形式でマトリックスキーの入力を受ける
@@ -42,7 +51,8 @@ def output(data):
         print(data)
         if newp:
             code[newp] = value
+            requests.post(url=url_status+value)
         printStat()
-        
+
 
 main()
