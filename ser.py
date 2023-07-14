@@ -52,7 +52,8 @@ def output(data):
         print(data)
         if newp:
             code[newp] = value
-            requests.post(url=url_status+value)
+            if port[newp] == True:
+                requests.post(url=url_status+value)
         printStat()
 
 
