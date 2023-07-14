@@ -4,8 +4,8 @@
 import time
 import serial
 import requests
-from dotenv import load_dotenv
-load_dotenv()
+import dotenv
+dotenv.load_dotenv()
 import os
 url_status = os.getenv('URL_STATUS')
 url_notify = os.getenv('URL_NOTIFY')
