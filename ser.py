@@ -43,7 +43,7 @@ def output(data):
                     newp = d[0]
                     ser.write(b'request')
                 else:
-                    if code[d[0]] != '':
+                    if code.get(d[0]):
                         requests.delete(url=url_status+code[d[0]])
                     code[d[0]] = ''
         port[d[0]]=value
