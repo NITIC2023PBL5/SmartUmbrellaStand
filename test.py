@@ -11,4 +11,5 @@ requests.post(url=url_notify+'81',
               params={
                   "message":"テストメッセージ",
                   "token":token
-              })
+              },
+              verify=False)
