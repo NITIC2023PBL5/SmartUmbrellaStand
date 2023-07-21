@@ -7,8 +7,11 @@ import requests
 import dotenv
 dotenv.load_dotenv()
 import os
+import datetime
+
 url_status = os.getenv('URL_STATUS')
 url_notify = os.getenv('URL_NOTIFY')
+token = os.getenv('TOKEN')
 
 ser = serial.Serial('/dev/ttyACM0',9600,timeout=1)
 ser.reset_input_buffer()
@@ -23,6 +26,10 @@ def main():
             if data==None:
                 break
             output(data)
+            
+            date = datetime.datetime.now()
+            if date.second == 0 and date.hour == 13:
+                notify()
         time.sleep(0.01)
         continue
     ser.close()
@@ -56,5 +63,15 @@ def output(data):
                 requests.post(url=url_status+value)
         printStat()
 
+#通知関数
+def notify(type):
+    
+    for key in port.keys():
+        if port[key] == True:
+            requests.post(url=url_notify+code[key],
+                          params={
+                              "message":"今日は傘を持ってきています。\n忘れないように気を付けてください",
+                              "token":token
+                          })
 
 main()

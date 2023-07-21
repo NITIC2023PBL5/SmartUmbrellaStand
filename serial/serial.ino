@@ -9,7 +9,11 @@ String number = "";
 //ボタンのピン番号
 int in1=2,
     in2=3,
-    in3=4;
+    in3=4
+    in4=5,
+    in5=6,
+    in6=7,
+    in7=8;
 
 //[構文]LCD(rs,e,d0,d1,d2,d3,d4,d5,d6,d7)
 LiquidCrystal lcd(53,51,49,47,45,43);
@@ -50,6 +54,18 @@ void loop() {
 
     if(digitalRead(in3)==HIGH) Serial.println("port3:True");
     else Serial.println("port3:False");
+
+    if(digitalRead(in4)==HIGH) Serial.println("port4:True");
+    else Serial.println("port4:False");
+
+    if(digitalRead(in5)==HIGH) Serial.println("port5:True");
+    else Serial.println("port5:False");
+
+    if(digitalRead(in6)==HIGH) Serial.println("port6:True");
+    else Serial.println("port6:False");
+
+    if(digitalRead(in7)==HIGH) Serial.println("port7:True");
+    else Serial.println("port7:False");
   }
 
   if(Serial.available()>0 && Serial.readString().compareTo("request")==0){
