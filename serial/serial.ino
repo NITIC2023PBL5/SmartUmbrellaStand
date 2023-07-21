@@ -9,7 +9,7 @@ String number = "";
 //ボタンのピン番号
 int in1=2,
     in2=3,
-    in3=4
+    in3=4,
     in4=5,
     in5=6,
     in6=7,
