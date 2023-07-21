@@ -52,6 +52,11 @@ def output(data):
                 else:
                     if code.get(d[0]):
                         requests.delete(url=url_status+code[d[0]])
+                        requests.delete(url=url_notify,
+                                        params={
+                                            "message":"傘が抜かれました。\n登録を解除します。",
+                                            "token":token
+                                        })
                     code[d[0]] = ''
         port[d[0]]=value
     elif data.find('mat')==0:  # 「mat:<Number>」の形式でマトリックスキーの入力を受ける
@@ -61,6 +66,11 @@ def output(data):
             code[newp] = value
             if port[newp] == True:
                 requests.post(url=url_status+value)
+                requests.post(url=url_notify+value,
+                              params={
+                                  "message":"傘を登録しました。\n13時にお知らせします。",
+                                  "token":token
+                              })
         printStat()
 
 #通知関数
