@@ -12,4 +12,7 @@ requests.post(url=url_notify+'81',
                   "message":"テストメッセージ",
                   "token":token
               },
-              verify=False)
+              proxies={
+                  'http':'http://po.cc.ibaraki-ct.ac.jp:3128',
+                  'https':'http://po.cc.ibaraki-ct.ac.jp:3128'
+              })
